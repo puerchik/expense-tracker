@@ -1,7 +1,9 @@
 <script setup>
 const props = defineProps({
-  transactions: Array,
-  required: true,
+  transactions: {
+    type: Array,
+    required: true,
+  },
 })
 </script>
 
@@ -13,7 +15,8 @@ const props = defineProps({
       :key="transaction.id"
       :class="transaction.amount < 0 ? 'minus' : 'plus'"
     >
-      Cash <span>${{ transaction.amount }}</span>
+      {{ transaction.text || 'Cash' }}
+      <span> {{ transaction.amount < 0 ? '-' : '+' }}${{ Math.abs(transaction.amount) }} </span>
       <button class="delete-btn">x</button>
     </li>
   </ul>
