@@ -2,8 +2,6 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 
-import 'vue-toastification/dist/index.css'
-
 const transactions = defineModel('transactions')
 
 const transactionText = ref('')
@@ -25,10 +23,10 @@ const handleFormSubmit = () => {
       amount: Number(transactionAmount.value.toFixed(2)),
     })
 
+    toast.success(`Transaction ${transactionText.value} added.`)
+
     transactionText.value = ''
     transactionAmount.value = ''
-
-    toast.success('Transaction added.')
   } else {
     toast.error('Both fields must be filled.')
   }

@@ -7,6 +7,8 @@ import TransactionList from './components/TransactionList.vue'
 import TitleBar from './components/TitleBar.vue'
 import Balance from './components/Balance.vue'
 
+import 'vue-toastification/dist/index.css'
+
 const transactions = ref([
   { id: 1, text: 'Flower', amount: -20.11 },
   { id: 2, text: 'Salary', amount: 300.33 },
@@ -36,7 +38,7 @@ const total = computed(() => {
     <title-bar></title-bar>
     <balance :total></balance>
     <income-expenses :income :expenses></income-expenses>
-    <transaction-list :transactions></transaction-list>
+    <transaction-list v-model:transactions="transactions"></transaction-list>
     <add-transaction v-model:transactions="transactions"></add-transaction>
   </div>
 </template>

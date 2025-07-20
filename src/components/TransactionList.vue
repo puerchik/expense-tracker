@@ -1,10 +1,14 @@
 <script setup>
-const props = defineProps({
-  transactions: {
-    type: Array,
-    required: true,
-  },
-})
+import { useToast } from 'vue-toastification'
+
+const transactions = defineModel('transactions')
+const toast = useToast()
+
+const handleDeleteTransaction = (transactionId, transactionText) => {
+  transactions.value = transactions.value.filter(transaction => transaction.id !== transactionId)
+
+  toast.success(`Transaction ${transactionText} deleted.`)
+}
 </script>
 
 <template>
@@ -21,7 +25,9 @@ const props = defineProps({
           Math.abs(transaction.amount)
         }}
       </span>
-      <button class="delete-btn">x</button>
+      <button @click="handleDeleteTransaction(transaction.id, transaction.text)" class="delete-btn">
+        x
+      </button>
     </li>
   </ul>
 </template>
