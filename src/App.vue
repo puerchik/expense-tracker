@@ -14,7 +14,9 @@ const transactions = ref([
   { id: 4, text: 'Camera', amount: 150 },
 ])
 
-const getTransactionsSum = arr => arr.reduce((acc, c) => acc + c.amount, 0).toFixed(2)
+const getTransactionsSum = arr => {
+  return arr.reduce((acc, c) => acc + c.amount, 0).toFixed(2)
+}
 
 const income = computed(() => {
   return +getTransactionsSum(transactions.value.filter(transaction => transaction.amount > 0))
@@ -35,7 +37,7 @@ const total = computed(() => {
     <balance :total></balance>
     <income-expenses :income :expenses></income-expenses>
     <transaction-list :transactions></transaction-list>
-    <add-transaction></add-transaction>
+    <add-transaction v-model:transactions="transactions"></add-transaction>
   </div>
 </template>
 
