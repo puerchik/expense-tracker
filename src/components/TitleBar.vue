@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <h4>Your Balance</h4>
+  <h2>Expense Tracker</h2>
 </template>
 
 <style scoped></style>
