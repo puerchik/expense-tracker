@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 
+import { saveTransactionsToLocalStorage } from '../utils/saveTransactionsToLocalStorage'
+
 const transactions = defineModel('transactions')
 
 const transactionText = ref('')
@@ -16,7 +18,7 @@ const handleFormSubmit = () => {
 
   const transactionId = generateUniqueId()
 
-  if (transactionText.value !== '' && transactionAmount.value !== '') {
+  if (transactionText.value.trim() !== '' && transactionAmount.value !== '') {
     transactions.value.push({
       id: transactionId,
       text: transactionText.value,
@@ -24,6 +26,8 @@ const handleFormSubmit = () => {
     })
 
     toast.success(`Transaction ${transactionText.value} added.`)
+
+    saveTransactionsToLocalStorage(transactions.value)
 
     transactionText.value = ''
     transactionAmount.value = ''

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import AddTransaction from './components/AddTransaction.vue'
 import IncomeExpenses from './components/IncomeExpenses.vue'
@@ -11,9 +11,9 @@ import 'vue-toastification/dist/index.css'
 
 const transactions = ref([
   { id: 1, text: 'Flower', amount: -20.11 },
-  { id: 2, text: 'Salary', amount: 300.33 },
+  { id: 2, text: 'Salary', amount: 1500.33 },
   { id: 3, text: 'Book', amount: -10 },
-  { id: 4, text: 'Camera', amount: 150 },
+  { id: 4, text: 'Startup', amount: 2000 },
 ])
 
 const getTransactionsSum = arr => {
@@ -30,6 +30,14 @@ const expenses = computed(() => {
 
 const total = computed(() => {
   return +getTransactionsSum(transactions.value)
+})
+
+onMounted(() => {
+  if (!localStorage.getItem('transactions')) {
+    localStorage.setItem('transactions', JSON.stringify(transactions.value))
+  }
+
+  transactions.value = JSON.parse(localStorage.getItem('transactions'))
 })
 </script>
 

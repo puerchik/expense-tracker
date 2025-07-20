@@ -1,6 +1,9 @@
 <script setup>
 import { useToast } from 'vue-toastification'
 
+import { saveTransactionsToLocalStorage } from '../utils/saveTransactionsToLocalStorage'
+import { nextTick } from 'vue'
+
 const transactions = defineModel('transactions')
 const toast = useToast()
 
@@ -8,6 +11,10 @@ const handleDeleteTransaction = (transactionId, transactionText) => {
   transactions.value = transactions.value.filter(transaction => transaction.id !== transactionId)
 
   toast.success(`Transaction ${transactionText} deleted.`)
+
+  nextTick(() => {
+    saveTransactionsToLocalStorage(transactions.value)
+  })
 }
 </script>
 
